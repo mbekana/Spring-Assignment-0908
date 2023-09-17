@@ -41,9 +41,9 @@ public class MediaServiceImpl implements MediaService{
         // Create a Media object to save in the database
         Media media = new Media();
         media.setMediaType(fileType.equals("picture") ? MediaType.PICTURE : MediaType.VIDEO);
-        media.setCaption(caption); // Set the caption as needed
+        media.setCaption(caption);
         media.setUploadedAt(LocalDateTime.now());
-        media.setDuration(0L); // Set the duration as needed
+        media.setDuration(0L);
         media.setChatroom(chatroomService.getChatroomById(chatroomId));
 
         // Save the media information in the database

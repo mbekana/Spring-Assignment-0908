@@ -32,25 +32,21 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User registerUser(User user) {
-        // Encode the user's password before saving to the database
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Perform any additional validation or processing before saving the user
         return userRepository.save(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Load the user from the database based on the provided username
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Build a UserDetails object from the retrieved user entity
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .authorities(Collections.emptyList()) // You can set user roles/authorities here
-                .accountExpired(false) // You may set these flags based on your requirements
+                .authorities(Collections.emptyList())
+                .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)
                 .disabled(false)
@@ -63,5 +59,4 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    // Add other user-related methods as needed
 }
